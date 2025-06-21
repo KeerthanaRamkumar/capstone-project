@@ -1,14 +1,14 @@
 import cv2
 import os
 
-# XOR encryption and decryption
+
 def xor_encrypt(text, key):
     return ''.join(chr(ord(c) ^ ord(key[i % len(key)])) for i, c in enumerate(text))
 
 def xor_decrypt(cipher, key):
     return ''.join(chr(ord(c) ^ ord(key[i % len(key)])) for i, c in enumerate(cipher))
 
-# Convert JPG to PNG for lossless steganography
+
 def convert_to_png(jpg_path, png_path):
     image = cv2.imread(jpg_path)
     if image is None:
@@ -18,9 +18,9 @@ def convert_to_png(jpg_path, png_path):
     print(f"[📸] Converted '{jpg_path}' to '{png_path}'")
     return True
 
-# Encode message in image using LSB
+
 def hide_message(image_path, message, key, output_path):
-    encrypted = xor_encrypt(message, key) + "#END#"  # End marker
+    encrypted = xor_encrypt(message, key) + "#END#"  
     binary_data = ''.join(format(ord(char), '08b') for char in encrypted)
 
     image = cv2.imread(image_path)
@@ -40,7 +40,7 @@ def hide_message(image_path, message, key, output_path):
         for j in range(cols):
             if index < len(binary_data):
                 pixel = image[i, j]
-                pixel[0] = (pixel[0] & ~1) | int(binary_data[index])  # Change blue channel LSB
+                pixel[0] = (pixel[0] & ~1) | int(binary_data[index])
                 image[i, j] = pixel
                 index += 1
             else:
@@ -51,7 +51,7 @@ def hide_message(image_path, message, key, output_path):
     cv2.imwrite(output_path, image, [cv2.IMWRITE_PNG_COMPRESSION, 0])
     print(f"[✅] Message hidden in '{output_path}'")
 
-# Decode and decrypt message from image
+
 def reveal_message(image_path, key):
     image = cv2.imread(image_path)
     if image is None:
@@ -76,7 +76,7 @@ def reveal_message(image_path, key):
     decrypted = xor_decrypt(encrypted, key)
     return decrypted
 
-# === Main Program ===
+
 if __name__ == "__main__":
     jpg_path = "/mnt/data/input.jpg"
     png_path = "/mnt/data/input.png"
