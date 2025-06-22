@@ -1,22 +1,21 @@
-🖼️ Steganography Output:
+Steganography Output:
 
-🔐 Secret Message Embedded:
+Secret Message Embedded:
 "Results will be announced next week."
 
-🔑 Encryption Details:
+Encryption Details:
 Method: XOR Cipher
 Key: lab2025
-
-🧬 Embedding Technique:
+ Embedding Technique:
 Type: Least Significant Bit (LSB)
 Channel Used: Blue (1 bit per pixel)
 Image Format: Converted to PNG for lossless storage
 
-📁 Files Used:
+Files Used:
 Original Image: input.jpg
 Converted Image: input.png
 Output Image with Hidden Message: output_stego.png
 
-✅ Final Decrypted Message:
+Final Decrypted Message:
 "Results will be announced next week."
 
