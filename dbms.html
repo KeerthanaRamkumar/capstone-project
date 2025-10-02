@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>RK Hospital Management System</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f9;
+    }
+    header {
+      background: #0077b6;
+      color: white;
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header nav {
+      display: flex;
+      gap: 15px;
+    }
+    header nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .hospital-name {
+      font-size: 20px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    main {
+      padding: 20px;
+    }
+    .hidden {
+      display: none;
+    }
+    .form-group {
+      margin-bottom: 10px;
+    }
+    input, select {
+      padding: 8px;
+      width: 100%;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      padding: 10px 15px;
+      background: #0077b6;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #023e8a;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background: #0077b6;
+      color: white;
+    }
+    .login-container {
+      width: 300px;
+      margin: 100px auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .login-container h2 {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Login Page -->
+<div id="loginPage" class="login-container">
+  <h2>RK Hospital Login</h2>
+  <div class="form-group">
+    <label>Username</label>
+    <input type="text" id="username">
+  </div>
+  <div class="form-group">
+    <label>Password</label>
+    <input type="password" id="password">
+  </div>
+  <button onclick="login()">Login</button>
+  <p id="loginError" style="color:red;"></p>
+</div>
+
+<!-- Home Page -->
+<div id="homePage" class="hidden">
+  <header>
+    <nav>
+      <a href="#" onclick="showPage('homePage')">Home</a>
+      <a href="#" onclick="showPage('aboutPage')">About Us</a>
+      <a href="#" onclick="showPage('patientPage')">Patient</a>
+      <a href="#" onclick="showPage('receptionistPage')">Receptionist</a>
+      <a href="#" onclick="logout()">Logout</a>
+    </nav>
+    <div class="hospital-name">
+      <img src="logo.png" alt="RK Hospital Logo" style="height:40px;">
+      RK Hospital
+    </div>
+  </header>
+  <main>
+    <h2>Welcome to RK Hospital</h2>
+    <img src="hospital.png" alt="RK Hospital Building" width="600" style="border-radius:10px; margin:15px 0;">
+    <h3>🏥 Our Details</h3>
+    <p><b>Address:</b> 123, Health Street, Chennai, India</p>
+    <p><b>Phone:</b> +91 98765 43210</p>
+    <p><b>Email:</b> contact@rkhospital.com</p>
+    <p><b>Visiting Hours:</b> Mon–Sat, 9:00 AM – 7:00 PM</p>
+  </main>
+</div>
+
+<!-- About Us Page -->
+<div id="aboutPage" class="hidden">
+  <header>
+    <nav>
+      <a href="#" onclick="showPage('homePage')">Home</a>
+      <a href="#" onclick="showPage('aboutPage')">About Us</a>
+      <a href="#" onclick="showPage('patientPage')">Patient</a>
+      <a href="#" onclick="showPage('receptionistPage')">Receptionist</a>
+      <a href="#" onclick="logout()">Logout</a>
+    </nav>
+    <div class="hospital-name">
+      <img src="logo.png" alt="RK Hospital Logo" style="height:40px;">
+      RK Hospital
+    </div>
+  </header>
+  <main>
+    <h2>About Us</h2>
+    <p>
+      RK Hospital was established in 1995 with a vision to provide affordable and 
+      world-class healthcare to the community. Our hospital is equipped with 
+      state-of-the-art facilities, highly skilled doctors, caring nurses, and 
+      modern technology to ensure the best treatment for our patients. 
+    </p>
+    <p>
+      We specialize in cardiology, neurology, pediatrics, surgery, and emergency care. 
+      With more than 25 years of service, RK Hospital continues to serve with compassion, 
+      dedication, and trust.
+    </p>
+  </main>
+</div>
+
+<!-- Patient Page -->
+<div id="patientPage" class="hidden">
+  <header>
+    <nav>
+      <a href="#" onclick="showPage('homePage')">Home</a>
+      <a href="#" onclick="showPage('aboutPage')">About Us</a>
+      <a href="#" onclick="showPage('patientPage')">Patient</a>
+      <a href="#" onclick="showPage('receptionistPage')">Receptionist</a>
+      <a href="#" onclick="logout()">Logout</a>
+    </nav>
+    <div class="hospital-name">
+      <img src="logo.png" alt="RK Hospital Logo" style="height:40px;">
+      RK Hospital
+    </div>
+  </header>
+  <main>
+    <h2>Patient Management</h2>
+    <div class="form-group">
+      <label>Patient Name</label>
+      <input type="text" id="pname">
+    </div>
+    <div class="form-group">
+      <label>Problem</label>
+      <input type="text" id="pproblem">
+    </div>
+    <div class="form-group">
+      <label>Doctor Assigned</label>
+      <input type="text" id="pdoctor">
+    </div>
+    <div class="form-group">
+      <label>Medicine</label>
+      <input type="text" id="pmedicine">
+    </div>
+    <div class="form-group">
+      <label>Nurse Assigned</label>
+      <input type="text" id="pnurse">
+    </div>
+    <div class="form-group">
+      <label>Room No</label>
+      <input type="text" id="proom">
+    </div>
+    <button onclick="addPatient()">Add Patient</button>
+
+    <h3>Patient Records</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Problem</th>
+          <th>Doctor</th>
+          <th>Medicine</th>
+          <th>Nurse</th>
+          <th>Room</th>
+        </tr>
+      </thead>
+      <tbody id="patientTable"></tbody>
+    </table>
+  </main>
+</div>
+
+<!-- Receptionist Page -->
+<div id="receptionistPage" class="hidden">
+  <header>
+    <nav>
+      <a href="#" onclick="showPage('homePage')">Home</a>
+      <a href="#" onclick="showPage('aboutPage')">About Us</a>
+      <a href="#" onclick="showPage('patientPage')">Patient</a>
+      <a href="#" onclick="showPage('receptionistPage')">Receptionist</a>
+      <a href="#" onclick="logout()">Logout</a>
+    </nav>
+    <div class="hospital-name">
+      <img src="logo.png" alt="RK Hospital Logo" style="height:40px;">
+      RK Hospital
+    </div>
+  </header>
+  <main>
+    <h2>Receptionist Management</h2>
+    <div class="form-group">
+      <label>Receptionist Name</label>
+      <input type="text" id="rname">
+    </div>
+    <div class="form-group">
+      <label>Shift</label>
+      <input type="text" id="rshift">
+    </div>
+    <div class="form-group">
+      <label>Contact</label>
+      <input type="text" id="rcontact">
+    </div>
+    <button onclick="addReceptionist()">Add Receptionist</button>
+
+    <h3>Receptionist Records</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Shift</th>
+          <th>Contact</th>
+        </tr>
+      </thead>
+      <tbody id="receptionistTable"></tbody>
+    </table>
+
+    <hr>
+    <h2>📋 Records Maintained by Receptionist</h2>
+
+    <!-- Patients maintained -->
+    <h3>Patients Assigned</h3>
+    <div class="form-group">
+      <label>Receptionist Name</label>
+      <input type="text" id="rpname">
+    </div>
+    <div class="form-group">
+      <label>Patient Name</label>
+      <input type="text" id="rpatient">
+    </div>
+    <button onclick="addReceptionistPatient()">Add Patient Record</button>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Receptionist</th>
+          <th>Patient</th>
+        </tr>
+      </thead>
+      <tbody id="receptionistPatientTable"></tbody>
+    </table>
+
+    <!-- Appointments handled -->
+    <h3>Appointments</h3>
+    <div class="form-group">
+      <label>Receptionist Name</label>
+      <input type="text" id="raname">
+    </div>
+    <div class="form-group">
+      <label>Patient Name</label>
+      <input type="text" id="rapatient">
+    </div>
+    <div class="form-group">
+      <label>Appointment Date</label>
+      <input type="date" id="radate">
+    </div>
+    <div class="form-group">
+      <label>Doctor</label>
+      <input type="text" id="radoctor">
+    </div>
+    <button onclick="addAppointment()">Add Appointment</button>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Receptionist</th>
+          <th>Patient</th>
+          <th>Date</th>
+          <th>Doctor</th>
+        </tr>
+      </thead>
+      <tbody id="appointmentTable"></tbody>
+    </table>
+  </main>
+</div>
+
+<script>
+  function login() {
+    const user = document.getElementById('username').value;
+    const pass = document.getElementById('password').value;
+    if (user === "admin" && pass === "1234") {
+      document.getElementById('loginPage').classList.add('hidden');
+      document.getElementById('homePage').classList.remove('hidden');
+    } else {
+      document.getElementById('loginError').innerText = "Invalid login!";
+    }
+  }
+
+  function logout() {
+    document.getElementById('homePage').classList.add('hidden');
+    document.getElementById('aboutPage').classList.add('hidden');
+    document.getElementById('patientPage').classList.add('hidden');
+    document.getElementById('receptionistPage').classList.add('hidden');
+    document.getElementById('loginPage').classList.remove('hidden');
+  }
+
+  function showPage(pageId) {
+    document.getElementById('homePage').classList.add('hidden');
+    document.getElementById('aboutPage').classList.add('hidden');
+    document.getElementById('patientPage').classList.add('hidden');
+    document.getElementById('receptionistPage').classList.add('hidden');
+    document.getElementById(pageId).classList.remove('hidden');
+  }
+
+  function addPatient() {
+    const name = document.getElementById('pname').value;
+    const problem = document.getElementById('pproblem').value;
+    const doctor = document.getElementById('pdoctor').value;
+    const medicine = document.getElementById('pmedicine').value;
+    const nurse = document.getElementById('pnurse').value;
+    const room = document.getElementById('proom').value;
+
+    if (!name || !problem) {
+      alert("Please enter patient name and problem!");
+      return;
+    }
+
+    const table = document.getElementById('patientTable');
+    const row = table.insertRow();
+    row.insertCell(0).innerText = name;
+    row.insertCell(1).innerText = problem;
+    row.insertCell(2).innerText = doctor;
+    row.insertCell(3).innerText = medicine;
+    row.insertCell(4).innerText = nurse;
+    row.insertCell(5).innerText = room;
+
+    document.getElementById('pname').value = "";
+    document.getElementById('pproblem').value = "";
+    document.getElementById('pdoctor').value = "";
+    document.getElementById('pmedicine').value = "";
+    document.getElementById('pnurse').value = "";
+    document.getElementById('proom').value = "";
+  }
+
+  function addReceptionist() {
+    const name = document.getElementById('rname').value;
+    const shift = document.getElementById('rshift').value;
+    const contact = document.getElementById('rcontact').value;
+
+    if (!name || !shift) {
+      alert("Please enter receptionist name and shift!");
+      return;
+    }
+
+    const table = document.getElementById('receptionistTable');
+    const row = table.insertRow();
+    row.insertCell(0).innerText = name;
+    row.insertCell(1).innerText = shift;
+    row.insertCell(2).innerText = contact;
+
+    document.getElementById('rname').value = "";
+    document.getElementById('rshift').value = "";
+    document.getElementById('rcontact').value = "";
+  }
+
+  function addReceptionistPatient() {
+    const rname = document.getElementById('rpname').value;
+    const patient = document.getElementById('rpatient').value;
+
+    if (!rname || !patient) {
+      alert("Please enter both receptionist and patient name!");
+      return;
+    }
+
+    const table = document.getElementById('receptionistPatientTable');
+    const row = table.insertRow();
+    row.insertCell(0).innerText = rname;
+    row.insertCell(1).innerText = patient;
+
+    document.getElementById('rpname').value = "";
+    document.getElementById('rpatient').value = "";
+  }
+
+  function addAppointment() {
+    const rname = document.getElementById('raname').value;
+    const patient = document.getElementById('rapatient').value;
+    const date = document.getElementById('radate').value;
+    const doctor = document.getElementById('radoctor').value;
+
+    if (!rname || !patient || !date) {
+      alert("Please enter receptionist, patient, and date!");
+      return;
+    }
+
+    const table = document.getElementById('appointmentTable');
+    const row = table.insertRow();
+    row.insertCell(0).innerText = rname;
+    row.insertCell(1).innerText = patient;
+    row.insertCell(2).innerText = date;
+    row.insertCell(3).innerText = doctor;
+
+    document.getElementById('raname').value = "";
+    document.getElementById('rapatient').value = "";
+    document.getElementById('radate').value = "";
+    document.getElementById('radoctor').value = "";
+  }
+</script>
+
+</body>
+</html>
+
+
